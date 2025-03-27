@@ -1,5 +1,5 @@
 #------------------ Config -----------------#
-NAME    := FdF
+NAME    := fdf
 SRCS    := \
 src/main.c \
 
