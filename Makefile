@@ -1,7 +1,9 @@
 #------------------ Config -----------------#
 NAME    := fdf
 SRCS    := \
-src/main.c \
+src/main.c              \
+src/parser/map_parser.c \
+src/parser/map_size.c   \
 
 #---------------- Variables ----------------#
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast
@@ -13,7 +15,8 @@ LIBFT   := $(LIB_DIR)/Libft
 HEADERS := -I ./include -I $(LIBMLX)/include -I $(LIBFT)/include
 LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -lglfw -pthread -lm
 
-OBJS    := ${SRCS:.c=.o}
+OBJ_DIR := obj
+OBJS    := $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 #----------------- Targets ----------------#
 all: submodules libmlx libft $(NAME)
@@ -31,14 +34,15 @@ libmlx:
 		echo "MLX42 is already built"; \
 	fi
 
-%.o: %.c
+$(OBJ_DIR)/%.o: src/%.c
+	@mkdir -p $(dir $@)
 	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	@rm -rf $(OBJS)
+	@rm -rf $(OBJ_DIR)
 	@rm -rf $(LIBMLX)/build
 	@$(MAKE) --no-print-directory -C $(LIBFT) clean
 
@@ -48,4 +52,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all, clean, fclean, re, libmlx, libft, submodules
+.PHONY: all clean fclean re libmlx libft submodules
