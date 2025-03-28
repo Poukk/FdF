@@ -2,6 +2,8 @@
 .cache
 en.subject.pdf
 obj
+fdf
+compile_commands.json
 
 # Prerequisites
 *.d

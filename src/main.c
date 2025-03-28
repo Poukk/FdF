@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "fdf.h"
+#include "ft_printf.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -35,7 +36,7 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 	{
-		write(2, "Usage: ./fdf <map_file>\n", 24);
+		ft_printf("Usage: ./fdf <map_file>\n");
 		return (EXIT_FAILURE);
 	}
 	map = init_map(argv[1]);
