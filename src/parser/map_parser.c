@@ -14,6 +14,16 @@
 #include "fdf.h"
 #include <fcntl.h>
 
+void	free_split(char **splited)
+{
+	int	i;
+
+	i = 0;
+	while (splited[i] != NULL)
+		free(splited[i++]);
+	free(splited);
+}
+
 void	alloc_map(t_map *map, uint32_t rows, uint32_t columns)
 {
 	uint32_t	i;
@@ -83,7 +93,7 @@ void	parse_map(char *filename, t_map *map)
 			map->matrix[i][j] = ft_atoi(splited_line[j]);
 			j++;
 		}
-		free(splited_line);
+		free_split(splited_line);
 		free(line);
 		i++;
 	}
