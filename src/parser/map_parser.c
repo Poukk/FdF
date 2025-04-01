@@ -49,15 +49,15 @@ t_map	*init_map(char *filename)
 		return (NULL);
 	rows = get_rows(filename);
 	if (!rows)
-		return (free_map(map));
+		return (map_error(map));
 	columns = get_columns(filename);
 	if (!columns)
-		return (free_map(map));
+		return (map_error(map));
 	map->row_count = rows;
 	map->column_count = columns;
 	map->matrix = (int **)malloc(rows * sizeof(int *));
 	if (!map->matrix)
-		return (free_map(map));
+		return (map_error(map));
 	alloc_map(map, rows, columns);
 	return (map);
 }

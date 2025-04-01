@@ -4,6 +4,7 @@ en.subject.pdf
 obj
 fdf
 compile_commands.json
+*vgcore*
 
 # Prerequisites
 *.d

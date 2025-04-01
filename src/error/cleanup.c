@@ -42,7 +42,7 @@ void	exit_error(char	*message)
 	exit(EXIT_FAILURE);
 }
 
-void	*free_map(t_map *map)
+void	*map_error(t_map *map)
 {
 	free(map);
 	return (NULL);

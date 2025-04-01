@@ -16,6 +16,20 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+void	free_map(t_map *map)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < map->row_count)
+	{
+		free(map->matrix[i]);
+		i++;
+	}
+	free(map->matrix);
+	free(map);
+}
+
 void	print_map(t_map *map)
 {
 	uint32_t	i;
@@ -52,6 +66,6 @@ int	main(int argc, char *argv[])
 	}
 	parse_map(argv[1], map);
 	print_map(map);
-	free_map(map);
+	map_error(map);
 	return (EXIT_SUCCESS);
 }

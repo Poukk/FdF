@@ -29,7 +29,7 @@ t_map	*init_map(char *filename);
 void	parse_map(char *filename, t_map *map);
 void	print_map(t_map *map);
 void	clean_fd(int fd);
-void	*free_map(t_map *map);
+void	*map_error(t_map *map);
 void	free_split(char **splited);
 void	clean_fd(int fd);
 void	exit_error(char	*message);
