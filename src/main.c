@@ -61,7 +61,7 @@ int	main(int argc, char *argv[])
 	map = init_map(argv[1]);
 	if (!map)
 	{
-		perror("Error initializing map");
+		ft_printf("Error initializing map");
 		return (EXIT_FAILURE);
 	}
 	parse_map(argv[1], map);
