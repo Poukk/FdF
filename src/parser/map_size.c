@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:17:35 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/03/28 15:17:36 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/01 08:46:39 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ uint32_t	get_columns(char *filename)
 	{
 		temp = count_words(line, ' ');
 		if (temp != columns)
-			write(1, "map error: inconsistent column count\n", 38);
+		{
+			free(line);
+			clean_fd(fd);
+			return (0);
+		}
 		free(line);
 		line = get_next_line(fd);
 	}

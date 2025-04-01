@@ -4,6 +4,7 @@ SRCS    := \
 src/main.c              \
 src/parser/map_parser.c \
 src/parser/map_size.c   \
+src/error/cleanup.c     \
 
 #---------------- Variables ----------------#
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast

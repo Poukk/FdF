@@ -16,18 +16,23 @@
 #include <stdlib.h>
 #include <unistd.h>
 
-void	free_map(t_map *map)
+void	print_map(t_map *map)
 {
 	uint32_t	i;
+	uint32_t	j;
 
 	i = 0;
 	while (i < map->row_count)
 	{
-		free(map->matrix[i]);
+		j = 0;
+		while (j < map->column_count)
+		{
+			ft_printf("%d ", map->matrix[i][j]);
+			j++;
+		}
+		ft_printf("\n");
 		i++;
 	}
-	free(map->matrix);
-	free(map);
 }
 
 int	main(int argc, char *argv[])

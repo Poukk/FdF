@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 15:14:04 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/03/28 15:19:14 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/01 08:50:27 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,9 @@ uint32_t	get_columns(char *filename);
 t_map	*init_map(char *filename);
 void	parse_map(char *filename, t_map *map);
 void	print_map(t_map *map);
+void	clean_fd(int fd);
+void	*free_map(t_map *map);
+void	free_split(char **splited);
+void	clean_fd(int fd);
+void	exit_error(char	*message);
 #endif
