@@ -12,23 +12,8 @@
 
 #include "fdf.h"
 #include "ft_printf.h"
-#include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
-
-void	free_map(t_map *map)
-{
-	uint32_t	i;
-
-	i = 0;
-	while (i < map->row_count)
-	{
-		free(map->matrix[i]);
-		i++;
-	}
-	free(map->matrix);
-	free(map);
-}
 
 void	print_map(t_map *map)
 {
@@ -61,7 +46,7 @@ int	main(int argc, char *argv[])
 	map = init_map(argv[1]);
 	if (!map)
 	{
-		ft_printf("Error initializing map");
+		ft_printf("Error initializing map\n");
 		return (EXIT_FAILURE);
 	}
 	parse_map(argv[1], map);

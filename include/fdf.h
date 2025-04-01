@@ -33,4 +33,5 @@ void	*map_error(t_map *map);
 void	free_split(char **splited);
 void	clean_fd(int fd);
 void	exit_error(char	*message);
+void	free_map(t_map *map);
 #endif

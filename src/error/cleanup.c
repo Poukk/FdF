@@ -23,6 +23,20 @@ void	free_split(char **splited)
 	free(splited);
 }
 
+void	free_map(t_map *map)
+{
+	uint32_t	i;
+
+	i = 0;
+	while (i < map->row_count)
+	{
+		free(map->matrix[i]);
+		i++;
+	}
+	free(map->matrix);
+	free(map);
+}
+
 void	clean_fd(int fd)
 {
 	char	*line;
