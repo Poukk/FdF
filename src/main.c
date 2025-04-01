@@ -66,6 +66,6 @@ int	main(int argc, char *argv[])
 	}
 	parse_map(argv[1], map);
 	print_map(map);
-	map_error(map);
+	free_map(map);
 	return (EXIT_SUCCESS);
 }
