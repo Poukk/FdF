@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "MLX42/MLX42.h"
 #include "fdf.h"
 #include "ft_printf.h"
 #include <stdlib.h>
@@ -37,20 +38,23 @@ void	print_map(t_map *map)
 int	main(int argc, char *argv[])
 {
 	t_map	*map;
+	mlx_t	*mlx;
 
 	if (argc != 2)
-	{
-		ft_printf("Usage: ./fdf <map_file>\n");
-		return (EXIT_FAILURE);
-	}
+		exit_error("Usage: ./fdf <map_file>\n");
+
 	map = init_map(argv[1]);
 	if (!map)
-	{
-		ft_printf("Error initializing map\n");
-		return (EXIT_FAILURE);
-	}
+		exit_error("Error initializing map\n");
 	parse_map(argv[1], map);
-	print_map(map);
+
+	mlx_set_setting(MLX_FULLSCREEN, true);
+	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
+	if (!mlx)
+		exit_error("Error initializing map\n");
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+
 	free_map(map);
 	return (EXIT_SUCCESS);
 }
