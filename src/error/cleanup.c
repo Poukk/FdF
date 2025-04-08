@@ -30,10 +30,10 @@ void	free_map(t_map *map)
 	i = 0;
 	while (i < map->row_count)
 	{
-		free(map->matrix[i]);
+		free(map->points[i]);
 		i++;
 	}
-	free(map->matrix);
+	free(map->points);
 	free(map);
 }
 

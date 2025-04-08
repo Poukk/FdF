@@ -27,7 +27,7 @@ void	print_map(t_map *map)
 		j = 0;
 		while (j < map->column_count)
 		{
-			ft_printf("%d ", map->matrix[i][j]);
+			ft_printf("%d ", map->points[i][j].z);
 			j++;
 		}
 		ft_printf("\n");
@@ -47,7 +47,7 @@ int	main(int argc, char *argv[])
 	if (!map)
 		exit_error("Error initializing map\n");
 	parse_map(argv[1], map);
-
+	print_map(map);
 	mlx_set_setting(MLX_FULLSCREEN, true);
 	mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!mlx)

@@ -18,11 +18,17 @@
 # include <stdint.h>
 # include <fcntl.h>
 
+typedef struct s_point
+{
+	uint32_t	z;
+	uint32_t	color;
+}	t_point;
+
 typedef struct s_map
 {
 	uint32_t	row_count;
 	uint32_t	column_count;
-	int			**matrix;
+	t_point		**points;
 }	t_map;
 
 uint32_t	get_rows(char *filename);

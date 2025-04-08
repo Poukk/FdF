@@ -17,23 +17,13 @@
 void	alloc_map(t_map *map, uint32_t rows, uint32_t columns)
 {
 	uint32_t	i;
-	uint32_t	j;
 
 	i = 0;
 	while (i < rows)
 	{
-		map->matrix[i] = (int *)malloc(columns * sizeof(int));
-		if (!map->matrix[i])
-		{
-			j = 0;
-			while (j < i)
-			{
-				free(map->matrix[j]);
-				j++;
-			}
-			free(map->matrix);
-			free(map);
-		}
+		map->points[i] = (t_point *)malloc(columns * sizeof(t_point));
+		if (!map->points[i])
+			free_map(map);
 		i++;
 	}
 }
@@ -55,8 +45,8 @@ t_map	*init_map(char *filename)
 		return (map_error(map));
 	map->row_count = rows;
 	map->column_count = columns;
-	map->matrix = (int **)malloc(rows * sizeof(int *));
-	if (!map->matrix)
+	map->points = (t_point **)malloc(rows * sizeof(t_point *));
+	if (!map->points)
 		return (map_error(map));
 	alloc_map(map, rows, columns);
 	return (map);
@@ -81,7 +71,7 @@ void	parse_map(char *filename, t_map *map)
 		j = 0;
 		while (j < map->column_count)
 		{
-			map->matrix[i][j] = ft_atoi(splited_line[j]);
+			map->points[i][j].z = ft_atoi(splited_line[j]);
 			j++;
 		}
 		free_split(splited_line);
