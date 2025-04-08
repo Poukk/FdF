@@ -23,7 +23,7 @@ OBJS    := $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 all: submodules libmlx libft $(NAME)
 
 submodules:
-	@git submodule update --init --recursive --jobs 4
+	@git submodule update --remote --merge
 
 libft:
 	@$(MAKE) --no-print-directory -C $(LIBFT)

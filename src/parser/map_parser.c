@@ -52,6 +52,18 @@ t_map	*init_map(char *filename)
 	return (map);
 }
 
+// WARNING: Uncomment line 62
+void	parse_color(t_point *point, char *content)
+{
+	char	**splited;
+
+	splited = ft_split(content, ',');
+	point->z = ft_atoi(splited[0]);
+	ft_printf("%s\n", splited[1]);
+	ft_printf("%d\n", ft_strtol(splited[1], (char **) NULL, 16));
+	point->color = ft_strtol(splited[1], (char **) NULL, 16);
+}
+
 void	parse_map(char *filename, t_map *map)
 {
 	uint32_t	i;
@@ -71,7 +83,13 @@ void	parse_map(char *filename, t_map *map)
 		j = 0;
 		while (j < map->column_count)
 		{
-			map->points[i][j].z = ft_atoi(splited_line[j]);
+			if (ft_strchr(splited_line[j], ','))
+				parse_color(&map->points[i][j], splited_line[j]);
+			else
+			{
+				map->points[i][j].z = ft_atoi(splited_line[j]);
+				map->points[i][j].color = 0;
+			}
 			j++;
 		}
 		free_split(splited_line);
