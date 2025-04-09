@@ -52,13 +52,21 @@ t_map	*init_map(char *filename)
 	return (map);
 }
 
-void	parse_color(t_point *point, char *content)
+void	parse_line(t_point *point, char *line)
 {
 	char	**splited;
 
-	splited = ft_split(content, ',');
-	point->z = ft_atoi(splited[0]);
-	point->color = ft_strtol(splited[1], (char **) NULL, 0);
+	if (ft_strchr(line, ','))
+	{
+		splited = ft_split(line, ',');
+		point->z = ft_atoi(splited[0]);
+		point->color = ft_strtol(splited[1], (char **) NULL, 0);
+	}
+	else
+	{
+		point->z = ft_atoi(line);
+		point->color = 0;
+	}
 }
 
 void	parse_map(char *filename, t_map *map)
@@ -80,13 +88,7 @@ void	parse_map(char *filename, t_map *map)
 		j = 0;
 		while (j < map->column_count)
 		{
-			if (ft_strchr(splited_line[j], ','))
-				parse_color(&map->points[i][j], splited_line[j]);
-			else
-			{
-				map->points[i][j].z = ft_atoi(splited_line[j]);
-				map->points[i][j].color = 0;
-			}
+			parse_line(&map->points[i][j], splited_line[j]);
 			j++;
 		}
 		free_split(splited_line);

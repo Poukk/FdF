@@ -46,7 +46,6 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		exit_error("Usage: ./fdf <map_file>\n");
-
 	map = init_map(argv[1]);
 	if (!map)
 		exit_error("Error initializing map\n");
