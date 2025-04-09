@@ -52,16 +52,13 @@ t_map	*init_map(char *filename)
 	return (map);
 }
 
-// WARNING: Uncomment line 62
 void	parse_color(t_point *point, char *content)
 {
 	char	**splited;
 
 	splited = ft_split(content, ',');
 	point->z = ft_atoi(splited[0]);
-	ft_printf("%s\n", splited[1]);
-	ft_printf("%d\n", ft_strtol(splited[1], (char **) NULL, 16));
-	point->color = ft_strtol(splited[1], (char **) NULL, 16);
+	point->color = ft_strtol(splited[1], (char **) NULL, 0);
 }
 
 void	parse_map(char *filename, t_map *map)
