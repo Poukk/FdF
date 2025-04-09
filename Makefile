@@ -20,10 +20,7 @@ OBJ_DIR := obj
 OBJS    := $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 #----------------- Targets ----------------#
-all: submodules libmlx libft $(NAME)
-
-submodules:
-	@git submodule update --remote --merge
+all: libmlx libft $(NAME)
 
 libft:
 	@$(MAKE) --no-print-directory -C $(LIBFT)
@@ -53,4 +50,4 @@ fclean: clean
 
 re: clean all
 
-.PHONY: all clean fclean re libmlx libft submodules
+.PHONY: all clean fclean re libmlx libft
