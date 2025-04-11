@@ -24,7 +24,7 @@ OBJ_DIR := obj
 OBJS    := $(SRCS:src/%.c=$(OBJ_DIR)/%.o)
 
 #----------------- Targets ----------------#
-all: libmlx libft $(NAME)
+all: check_submodules libmlx libft $(NAME)
 
 libft:
 	@$(MAKE) --no-print-directory -C $(LIBFT)
@@ -34,6 +34,12 @@ libmlx:
 		cmake $(LIBMLX) -Wno-dev -B $(LIBMLX)/build && make -C $(LIBMLX)/build -j4; \
 	else \
 		echo "MLX42 is already built"; \
+	fi
+
+check_submodules:
+	@if git submodule status | grep -q '^-'; then \
+		echo "Initializing missing submodules..."; \
+		git submodule update --init --recursive; \
 	fi
 
 $(OBJ_DIR)/%.o: src/%.c
