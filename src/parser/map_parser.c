@@ -61,6 +61,7 @@ void	parse_line(t_point *point, char *line)
 		splited = ft_split(line, ',');
 		point->z = ft_atoi(splited[0]);
 		point->color = ft_strtol(splited[1], (char **) NULL, 0);
+		free_split(splited);
 	}
 	else
 	{
@@ -77,10 +78,10 @@ void	parse_map(char *filename, t_map *map)
 	char		**splited_line;
 	int			fd;
 
-	i = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 		return ;
+	i = 0;
 	while (i < map->row_count)
 	{
 		line = get_next_line(fd);

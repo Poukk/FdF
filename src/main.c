@@ -21,7 +21,6 @@ void	init_fdf(t_fdf *fdf, char *filename)
 	if (!fdf->map)
 		exit_error("Error initializing map\n");
 	parse_map(filename, fdf->map);
-	
 	mlx_set_setting(MLX_MAXIMIZED, true);
 	fdf->mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!fdf->mlx)
@@ -38,7 +37,6 @@ int	main(int argc, char *argv[])
 
 	if (argc != 2)
 		exit_error("Usage: ./fdf <map_file>\n");
-	
 	init_fdf(&fdf, argv[1]);
 	draw_test_lines(&fdf);
 	mlx_loop(fdf.mlx);
