@@ -6,6 +6,9 @@ src/debug.c		\
 src/parser/map_parser.c \
 src/parser/map_size.c   \
 src/error/cleanup.c     \
+src/draw/color.c        \
+src/draw/helpers.c      \
+src/draw/line.c         \
 
 #---------------- Variables ----------------#
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast
