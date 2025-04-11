@@ -10,8 +10,10 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <stdlib.h>
 #include "fdf.h"
-#include "libft.h"
+#include "ft_printf.h"
+#include "get_next_line.h"
 
 void	free_split(char **splited)
 {

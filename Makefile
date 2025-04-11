@@ -2,6 +2,7 @@
 NAME    := fdf
 SRCS    := \
 src/main.c              \
+src/debug.c		\
 src/parser/map_parser.c \
 src/parser/map_size.c   \
 src/error/cleanup.c     \

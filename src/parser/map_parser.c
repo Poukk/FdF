@@ -10,9 +10,9 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <fcntl.h>
 #include "libft.h"
 #include "fdf.h"
-#include <fcntl.h>
 
 void	alloc_map(t_map *map, uint32_t rows, uint32_t columns)
 {
