@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/12 16:02:30 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/12 16:02:31 by alexanfe         ###   ########.fr       */
+/*   Created: 2025/04/14 16:19:03 by alexanfe          #+#    #+#             */
+/*   Updated: 2025/04/14 16:30:00 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ uint32_t	interpolate_color(t_point start, t_point end, double percentage)
 
 uint32_t	convert_hex_color(char *hex_str)
 {
-	uint32_t	hex_color;
+	uint32_t	hex_value;
 	uint32_t	r;
 	uint32_t	g;
 	uint32_t	b;
@@ -45,20 +45,10 @@ uint32_t	convert_hex_color(char *hex_str)
 
 	if (hex_str[0] == '0' && (hex_str[1] == 'x' || hex_str[1] == 'X'))
 		hex_str += 2;
-	hex_color = ft_strtol(hex_str, (char **) NULL, 16);
-	if (hex_color <= 0xFF)
-	{
-		r = hex_color;
-		g = hex_color;
-		b = hex_color;
-		a = 0xFF;
-	}
-	else
-	{
-		r = (hex_color >> 16) & 0xFF;
-		g = (hex_color >> 8) & 0xFF;
-		b = hex_color & 0xFF;
-		a = 0xFF;
-	}
-	return (r << 24 | g << 16 | b << 8 | a);
+	hex_value = ft_strtol(hex_str, NULL, 16);
+	r = (hex_value >> 16) & 0xFF;
+	g = (hex_value >> 8) & 0xFF;
+	b = hex_value & 0xFF;
+	a = 0xFF;
+	return ((r << 24) | (g << 16) | (b << 8) | a);
 }

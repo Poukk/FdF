@@ -82,9 +82,11 @@ void		init_camera(t_fdf *fdf);
 t_point		project_point(t_point point, t_camera *camera);
 void		draw_map(t_fdf *fdf);
 uint32_t	convert_hex_color(char *hex_str);
-//void	put_pixel(mlx_image_t *img, int32_t x, int32_t y, uint32_t color);
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color);
 int	is_point_in_screen(int x, int y);
+double	get_percentage(double current, double start, double delta);
+void	update_bresenham_low(t_line *line);
+void	update_bresenham_high(t_line *line);
 
 // Error handling and cleanup
 void		exit_error(char *message);

@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 12:09:31 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/14 12:10:44 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/14 16:28:50 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,18 @@
 #include <unistd.h>
 #include "MLX42/MLX42.h"
 #include "fdf.h"
+
+void	init_image(t_fdf *fdf)
+{
+	fdf->img = mlx_new_image(fdf->mlx, WIDTH, HEIGHT);
+	if (!fdf->img)
+		exit_error("Error creating image\n");
+	if (mlx_image_to_window(fdf->mlx, fdf->img, 0, 0) == -1)
+	{
+		mlx_terminate(fdf->mlx);
+		exit_error("Error putting image to window\n");
+	}
+}
 
 void	init_fdf(t_fdf *fdf, char *filename)
 {
