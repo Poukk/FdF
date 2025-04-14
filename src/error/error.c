@@ -1,52 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cleanup.c                                          :+:      :+:    :+:   */
+/*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/04/01 08:45:23 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/14 17:30:21 by alexanfe         ###   ########.fr       */
+/*   Created: 2025/04/14 17:30:07 by alexanfe          #+#    #+#             */
+/*   Updated: 2025/04/14 17:31:22 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdlib.h>
 #include "fdf.h"
-#include "get_next_line.h"
+#include "ft_printf.h"
 
-void	free_split(char **splited)
+void	exit_error(char	*message)
 {
-	int	i;
-
-	i = 0;
-	while (splited[i] != NULL)
-		free(splited[i++]);
-	free(splited);
+	ft_printf(message);
+	exit(EXIT_FAILURE);
 }
 
-void	free_map(t_map *map)
+void	*map_error(t_map *map, void *message)
 {
-	uint32_t	i;
-
-	i = 0;
-	while (i < map->row_count)
-	{
-		free(map->points[i]);
-		i++;
-	}
-	free(map->points);
 	free(map);
+	ft_printf("Error: %s\n", (char *)message);
+	return (NULL);
 }
 
-void	clean_fd(int fd)
+void	*fd_error(int fd)
 {
-	char	*line;
-
-	line = get_next_line(fd);
-	while (line != NULL)
-	{
-		free(line);
-		line = get_next_line(fd);
-	}
 	close(fd);
+	return (NULL);
 }

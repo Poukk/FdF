@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:44:03 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/14 16:48:42 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:31:42 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@
 # define WIDTH 1920
 # define HEIGHT 1080
 # define WHITE 0xFFFFFFFF
+# define COLUNMN_ERROR "could not parse columns"
+# define ROW_ERROR "could not parse rows"
+# define POINTS_ERROR "could not parse maps to points"
 
 typedef struct s_point
 {
@@ -91,10 +94,13 @@ void		update_bresenham_low(t_line *line);
 void		update_bresenham_high(t_line *line);
 int			is_point_in_screen(int x, int y);
 
-/* Error handling */
-void		exit_error(char *message);
+/* Clenup handling */
 void		free_map(t_map *map);
 void		clean_fd(int fd);
 void		free_split(char **splited);
-void		*map_error(t_map *map);
+
+/* Error handling */
+void		exit_error(char *message);
+void		*map_error(t_map *map, void *message);
+void		*fd_error(int fd);
 #endif

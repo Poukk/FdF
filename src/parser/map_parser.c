@@ -39,15 +39,15 @@ t_map	*init_map(char *filename)
 		return (NULL);
 	rows = get_rows(filename);
 	if (!rows)
-		return (map_error(map));
+		return (map_error(map, ROW_ERROR));
 	columns = get_columns(filename);
 	if (!columns)
-		return (map_error(map));
+		return (map_error(map, COLUNMN_ERROR));
 	map->row_count = rows;
 	map->column_count = columns;
 	map->points = (t_point **)malloc(rows * sizeof(t_point *));
 	if (!map->points)
-		return (map_error(map));
+		return (map_error(map, POINTS_ERROR));
 	alloc_map(map, rows, columns);
 	return (map);
 }

@@ -5,6 +5,7 @@ src/main.c                 \
 src/parser/map_parser.c    \
 src/parser/map_size.c      \
 src/error/cleanup.c        \
+src/error/error.c          \
 src/draw/color.c           \
 src/draw/helpers.c         \
 src/draw/line.c            \
