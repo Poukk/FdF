@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/14 16:44:03 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/14 17:31:42 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/14 17:52:11 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,11 @@ typedef struct s_fdf
 }	t_fdf;
 
 /* Map parsing*/
-t_map		*init_map(char *filename);
-void		parse_map(char *filename, t_map *map);
 uint32_t	get_rows(char *filename);
 uint32_t	get_columns(char *filename);
+t_map		*init_map(char *filename);
+void		init_fdf(t_fdf *fdf, char *filename);
+void		parse_map(char *filename, t_map *map);
 
 /* Color parsing */
 uint32_t	interpolate_color(t_point start, t_point end, double percentage);
@@ -103,4 +104,5 @@ void		free_split(char **splited);
 void		exit_error(char *message);
 void		*map_error(t_map *map, void *message);
 void		*fd_error(int fd);
+void		validate_filename(char *filename);
 #endif

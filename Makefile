@@ -4,6 +4,7 @@ SRCS    := \
 src/main.c                 \
 src/parser/map_parser.c    \
 src/parser/map_size.c      \
+src/parse/initialization.c \
 src/error/cleanup.c        \
 src/error/error.c          \
 src/draw/color.c           \

@@ -13,6 +13,7 @@
 #include <stdlib.h>
 #include "fdf.h"
 #include "ft_printf.h"
+#include "libft.h"
 
 void	exit_error(char	*message)
 {
@@ -31,4 +32,15 @@ void	*fd_error(int fd)
 {
 	close(fd);
 	return (NULL);
+}
+
+void	validate_filename(char *filename)
+{
+	size_t	len;
+
+	if (access(filename, R_OK) == -1)
+		exit_error("Error: File does not exist or cannot be read.\n");
+	len = ft_strlen(filename);
+	if (len < 5 || ft_strncmp(filename + len - 4, ".fdf", 4) != 0)
+		exit_error("Error: Filename must end with '.fdf'.\n");
 }
