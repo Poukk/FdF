@@ -22,7 +22,7 @@ static double	calculate_base_scale(t_map *map)
 	double	min_scale;
 	double	padding_factor;
 
-	padding_factor = 0.2;
+	padding_factor = 0.3;
 	min_scale = 5.0;
 	if (map->column_count <= 1 && map->row_count <= 1)
 		return (20.0);
