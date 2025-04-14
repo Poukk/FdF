@@ -52,6 +52,12 @@ $(OBJ_DIR)/%.o: src/%.c
 $(NAME): $(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
+monolith:
+	@echo "// === HEADERS ===" > monolith.c
+	@find include -type f -name '*.h' -exec cat {} + >> monolith.c
+	@echo "// === SOURCES ===" >> monolith.c
+	@find src -type f -name '*.c' -exec cat {} + >> monolith.c
+
 clean:
 	@rm -rf $(OBJ_DIR)
 	@rm -rf $(LIBMLX)/build
