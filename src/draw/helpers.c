@@ -24,12 +24,15 @@ void	init_image(t_fdf *fdf)
 	}
 }
 
+int	is_point_in_screen(int x, int y)
+{
+	return (x >= 0 && x < WIDTH && y >= 0 && y < HEIGHT);
+}
+
 void	put_pixel(mlx_image_t *img, uint32_t x, uint32_t y, uint32_t color)
 {
 	uint32_t	*pixel;
 
-	if (x >= WIDTH || y >= HEIGHT)
-		return ;
 	pixel = (uint32_t *)(img->pixels + (y * img->width + x) * sizeof(uint32_t));
 	*pixel = color;
 }

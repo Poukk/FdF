@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/28 15:37:20 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/11 13:21:18 by alexanfe         ###   ########.fr       */
+/*   Created: 2025/04/14 12:09:31 by alexanfe          #+#    #+#             */
+/*   Updated: 2025/04/14 12:10:44 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	init_fdf(t_fdf *fdf, char *filename)
 	if (!fdf->map)
 		exit_error("Error initializing map\n");
 	parse_map(filename, fdf->map);
-	mlx_set_setting(MLX_MAXIMIZED, true);
+	mlx_set_setting(MLX_FULLSCREEN, true);
 	fdf->mlx = mlx_init(WIDTH, HEIGHT, "FdF", true);
 	if (!fdf->mlx)
 	{
@@ -29,6 +29,7 @@ void	init_fdf(t_fdf *fdf, char *filename)
 		exit_error("Error initializing MLX\n");
 	}
 	init_image(fdf);
+	init_camera(fdf);
 }
 
 int	main(int argc, char *argv[])
@@ -38,9 +39,10 @@ int	main(int argc, char *argv[])
 	if (argc != 2)
 		exit_error("Usage: ./fdf <map_file>\n");
 	init_fdf(&fdf, argv[1]);
-	draw_test_lines(&fdf);
+	draw_map(&fdf);
 	mlx_loop(fdf.mlx);
 	mlx_terminate(fdf.mlx);
 	free_map(fdf.map);
+	free(fdf.camera);
 	return (EXIT_SUCCESS);
 }

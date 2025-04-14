@@ -9,6 +9,9 @@ src/error/cleanup.c     \
 src/draw/color.c        \
 src/draw/helpers.c      \
 src/draw/line.c         \
+src/draw/map.c          \
+src/projection/camera.c \
+src/projection/isometric.c \
 
 #---------------- Variables ----------------#
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast

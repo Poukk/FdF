@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/28 12:57:52 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/01 08:51:18 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/14 12:56:31 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void	parse_line(t_point *point, char *line)
 	{
 		splited = ft_split(line, ',');
 		point->z = ft_atoi(splited[0]);
-		point->color = ft_strtol(splited[1], (char **) NULL, 0);
+		point->color = convert_hex_color(splited[1]);
 		free_split(splited);
 	}
 	else
 	{
 		point->z = ft_atoi(line);
-		point->color = 0;
+		point->color = WHITE;
 	}
 }
 
@@ -79,8 +79,6 @@ void	parse_map(char *filename, t_map *map)
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return ;
 	i = 0;
 	while (i < map->row_count)
 	{
@@ -90,6 +88,8 @@ void	parse_map(char *filename, t_map *map)
 		while (j < map->column_count)
 		{
 			parse_line(&map->points[i][j], splited_line[j]);
+			map->points[i][j].x = j - (map->column_count / 2.0);
+			map->points[i][j].y = i - (map->row_count / 2.0);
 			j++;
 		}
 		free_split(splited_line);

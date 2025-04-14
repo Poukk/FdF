@@ -6,7 +6,7 @@
 /*   By: alexanfe <alexanfe@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/04/11 13:20:11 by alexanfe          #+#    #+#             */
-/*   Updated: 2025/04/11 13:34:10 by alexanfe         ###   ########.fr       */
+/*   Updated: 2025/04/11 13:34:05 by alexanfe         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,6 @@ static void	setup_line_low(t_line *line, t_point start, t_point end)
 	line->x = start.x;
 }
 
-static void	draw_line_low(mlx_image_t *img, t_point start, t_point end)
-{
-	t_line	line;
-	double	percentage;
-
-	setup_line_low(&line, start, end);
-	while (line.x <= end.x)
-	{
-		percentage = (double)(line.x - start.x) / (end.x - start.x);
-		put_pixel(img, line.x, line.y,
-			interpolate_color(start, end, percentage));
-		if (line.d > 0)
-		{
-			line.y = line.y + line.yi;
-			line.d = line.d + (2 * (line.dy - line.dx));
-		}
-		else
-			line.d = line.d + 2 * line.dy;
-		line.x++;
-	}
-}
-
 static void	setup_line_high(t_line *line, t_point start, t_point end)
 {
 	line->dx = end.x - start.x;
@@ -65,6 +43,31 @@ static void	setup_line_high(t_line *line, t_point start, t_point end)
 	line->y = start.y;
 }
 
+static void	draw_line_low(mlx_image_t *img, t_point start, t_point end)
+{
+	t_line	line;
+	double	percentage;
+
+	setup_line_low(&line, start, end);
+	while (line.x <= end.x)
+	{
+		if (is_point_in_screen(line.x, line.y))
+		{
+			percentage = (double)(line.x - start.x) / (end.x - start.x);
+			put_pixel(img, line.x, line.y,
+				interpolate_color(start, end, percentage));
+		}
+		if (line.d > 0)
+		{
+			line.y = line.y + line.yi;
+			line.d = line.d + (2 * (line.dy - line.dx));
+		}
+		else
+			line.d = line.d + 2 * line.dy;
+		line.x++;
+	}
+}
+
 static void	draw_line_high(mlx_image_t *img, t_point start, t_point end)
 {
 	t_line	line;
@@ -73,9 +76,12 @@ static void	draw_line_high(mlx_image_t *img, t_point start, t_point end)
 	setup_line_high(&line, start, end);
 	while (line.y <= end.y)
 	{
-		percentage = (double)(line.y - start.y) / (end.y - start.y);
-		put_pixel(img, line.x, line.y,
-			interpolate_color(start, end, percentage));
+		if (is_point_in_screen(line.x, line.y))
+		{
+			percentage = (double)(line.y - start.y) / (end.y - start.y);
+			put_pixel(img, line.x, line.y,
+				interpolate_color(start, end, percentage));
+		}
 		if (line.d > 0)
 		{
 			line.x = line.x + line.xi;
@@ -89,6 +95,11 @@ static void	draw_line_high(mlx_image_t *img, t_point start, t_point end)
 
 void	draw_line(mlx_image_t *img, t_point start, t_point end)
 {
+	if (start.x == end.x && start.y == end.y)
+	{
+		put_pixel(img, start.x, start.y, start.color);
+		return ;
+	}
 	if (fabs(end.y - start.y) < fabs(end.x - start.x))
 	{
 		if (start.x > end.x)
