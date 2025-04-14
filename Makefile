@@ -1,18 +1,18 @@
 #------------------ Config -----------------#
 NAME    := fdf
 SRCS    := \
-src/main.c                 \
-src/parser/map_parser.c    \
-src/parser/map_size.c      \
-src/parse/initialization.c \
-src/error/cleanup.c        \
-src/error/error.c          \
-src/draw/color.c           \
-src/draw/helpers.c         \
-src/draw/line.c            \
-src/draw/map.c             \
-src/projection/camera.c    \
-src/projection/isometric.c \
+src/main.c                  \
+src/parser/map_parser.c     \
+src/parser/map_size.c       \
+src/parser/initialization.c \
+src/error/cleanup.c         \
+src/error/error.c           \
+src/draw/color.c            \
+src/draw/helpers.c          \
+src/draw/line.c             \
+src/draw/map.c              \
+src/projection/camera.c     \
+src/projection/isometric.c  \
 
 #---------------- Variables ----------------#
 CFLAGS  := -Wextra -Wall -Werror -Wunreachable-code -Ofast
