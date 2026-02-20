@@ -55,12 +55,15 @@ t_map	*init_map(char *filename)
 static void	parse_line(t_point *point, char *line)
 {
 	char	*color;
+	char	saved;
 
 	color = ft_strchr(line, ',');
 	if (color)
 	{
+		saved = *color;
 		*color = '\0';
 		point->z = ft_atoi(line);
+		*color = saved;
 		point->color = convert_hex_color(color + 1);
 	}
 	else
@@ -70,6 +73,10 @@ static void	parse_line(t_point *point, char *line)
 	}
 }
 
+/*
+ * Returns the next token starting at `line`, updates `next` to the next cursor
+ * position, and mutates the line in-place by replacing separators with '\0'.
+ */
 static char	*get_next_token(char *line, char **next)
 {
 	char	*start;
@@ -102,21 +109,21 @@ void	parse_map(char *filename, t_map *map)
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		return ;
 	i = 0;
 	while (i < map->row_count)
 	{
 		line = get_next_line(fd);
-		if (!line)
-			break ;
 		cursor = line;
 		j = 0;
 		while (j < map->column_count)
 		{
 			token = get_next_token(cursor, &cursor);
 			if (!token)
-				break ;
+			{
+				free(line);
+				clean_fd(fd);
+				exit_error("Error: invalid map row\n");
+			}
 			parse_line(&map->points[i][j], token);
 			map->points[i][j].x = j - (map->column_count / 2.0);
 			map->points[i][j].y = i - (map->row_count / 2.0);
