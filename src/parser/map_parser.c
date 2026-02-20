@@ -102,10 +102,14 @@ void	parse_map(char *filename, t_map *map)
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
+	if (fd < 0)
+		return ;
 	i = 0;
 	while (i < map->row_count)
 	{
 		line = get_next_line(fd);
+		if (!line)
+			break ;
 		cursor = line;
 		j = 0;
 		while (j < map->column_count)
