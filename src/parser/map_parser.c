@@ -52,16 +52,19 @@ t_map	*init_map(char *filename)
 	return (map);
 }
 
-void	parse_line(t_point *point, char *line)
+static void	parse_line(t_point *point, char *line)
 {
-	char	**splited;
+	char	*color;
+	char	saved;
 
-	if (ft_strchr(line, ','))
+	color = ft_strchr(line, ',');
+	if (color)
 	{
-		splited = ft_split(line, ',');
-		point->z = ft_atoi(splited[0]);
-		point->color = convert_hex_color(splited[1]);
-		free_split(splited);
+		saved = *color;
+		*color = '\0';
+		point->z = ft_atoi(line);
+		*color = saved;
+		point->color = convert_hex_color(color + 1);
 	}
 	else
 	{
@@ -70,12 +73,39 @@ void	parse_line(t_point *point, char *line)
 	}
 }
 
+/*
+ * Returns the next token starting at `line`, updates `next` to the next cursor
+ * position, and mutates the line in-place by replacing separators with '\0'.
+ */
+static char	*get_next_token(char *line, char **next)
+{
+	char	*start;
+
+	if (!line)
+		return (NULL);
+	while (*line == ' ')
+		line++;
+	if (*line == '\0' || *line == '\n')
+		return (NULL);
+	start = line;
+	while (*line && *line != ' ' && *line != '\n')
+		line++;
+	if (*line)
+	{
+		*line = '\0';
+		line++;
+	}
+	*next = line;
+	return (start);
+}
+
 void	parse_map(char *filename, t_map *map)
 {
 	uint32_t	i;
 	uint32_t	j;
 	char		*line;
-	char		**splited_line;
+	char		*token;
+	char		*cursor;
 	int			fd;
 
 	fd = open(filename, O_RDONLY);
@@ -83,16 +113,22 @@ void	parse_map(char *filename, t_map *map)
 	while (i < map->row_count)
 	{
 		line = get_next_line(fd);
-		splited_line = ft_split(line, ' ');
+		cursor = line;
 		j = 0;
 		while (j < map->column_count)
 		{
-			parse_line(&map->points[i][j], splited_line[j]);
+			token = get_next_token(cursor, &cursor);
+			if (!token)
+			{
+				free(line);
+				clean_fd(fd);
+				exit_error("Error: invalid map row\n");
+			}
+			parse_line(&map->points[i][j], token);
 			map->points[i][j].x = j - (map->column_count / 2.0);
 			map->points[i][j].y = i - (map->row_count / 2.0);
 			j++;
 		}
-		free_split(splited_line);
 		free(line);
 		i++;
 	}
